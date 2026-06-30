@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payal1
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd-deploy
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: go-app
+    repoURL: https://github.com/swagat-devops/go-app.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: false
+      selfHeal: true
